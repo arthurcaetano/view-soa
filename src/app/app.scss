@@ -4,6 +4,9 @@
 .modal-aluno .modal-wrapper{
     height: 460px !important;
 }
+.modal-tarefa .modal-wrapper{
+    height: 450px !important;
+}
 .toast-alerta {
     .toast-message {
         background-color: #FB8C00;
@@ -18,4 +21,7 @@
     .toast-message {
         background-color: rgb(5, 139, 201);
     }
+}
+.toolbar-background{
+    background: #e6e6e6;
 }

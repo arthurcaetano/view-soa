@@ -1,0 +1,33 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Cadastro de Tarefa</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label floating> Título </ion-label>
+    <ion-input [(ngModel)]="tarefa.Titulo" id="nome" autofocus required> </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating> Descrição </ion-label>
+    <ion-input [(ngModel)]="tarefa.Descricao"> </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating> Início </ion-label>
+    <ion-input [(ngModel)]="tarefa.Inicio"> </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating> Fim </ion-label>
+    <ion-input [(ngModel)]="tarefa.Fim"> </ion-input>
+  </ion-item>
+
+  <div padding class="barra-ferramentas">
+    <button ion-button (click)="gravar()">Gravar</button>
+    <button ion-button (click)="cancelar()">Cancelar</button>
+  </div>
+
+</ion-content>

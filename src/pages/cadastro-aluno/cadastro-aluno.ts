@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, ModalController, Events } from 'ionic-angular';
 import { Aluno } from '../../models/aluno';
 import { DialogoProvider } from '../../providers/dialogo/dialogo';
-import { Events } from 'ionic-angular/util/events';
 
+@IonicPage()
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'page-cadastro-aluno',
+  templateUrl: 'cadastro-aluno.html',
 })
-export class HomePage {
+export class CadastroAlunoPage {
+
 
   alunos: Aluno[] = [{
     Id: 1,
@@ -58,6 +59,8 @@ export class HomePage {
       .then(() => {
 
         this.alunos = this.alunos.filter(a => a.Id != aluno.Id);
-      });
+      })
+      .catch(_ => _);
   }
+
 }

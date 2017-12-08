@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Aluno } from '../../models/aluno';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
-import { DialogoProvider } from '../../providers/dialogo/dialogo';
 import { Input } from '@angular/core/src/metadata/directives';
 import { Events } from 'ionic-angular/util/events';
+import { Aluno } from '../../../models/aluno';
+import { DialogoProvider } from '../../../providers/dialogo/dialogo';
 
 @IonicPage()
 @Component({
