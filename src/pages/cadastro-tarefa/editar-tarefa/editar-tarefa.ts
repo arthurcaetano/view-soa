@@ -18,7 +18,7 @@ export class EditarTarefaPage {
     public viewController: ViewController,
     public dialogo: DialogoProvider) {
 
-    this.tarefa = this.navParams.get('tarefa');
+    this.tarefa = this.navParams.get('Tarefa');
 
     if (!this.tarefa) this.tarefa = new Tarefa();
   }
