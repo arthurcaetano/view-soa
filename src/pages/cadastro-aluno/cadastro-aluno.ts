@@ -10,7 +10,6 @@ import { DialogoProvider } from '../../providers/dialogo/dialogo';
 })
 export class CadastroAlunoPage {
 
-
   alunos: Aluno[] = [{
     Id: 1,
     Nome: 'Arthur Caetano Borges Silva',
