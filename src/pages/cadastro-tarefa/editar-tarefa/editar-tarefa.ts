@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { DialogoProvider } from '../../../providers/dialogo/dialogo';
 import { Tarefa } from '../../../models/tarefa';
+import { Events } from 'ionic-angular/util/events';
 
 @IonicPage()
 @Component({
@@ -16,7 +17,8 @@ export class EditarTarefaPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public viewController: ViewController,
-    public dialogo: DialogoProvider) {
+    public dialogo: DialogoProvider,
+    public events: Events) {
 
     this.tarefa = this.navParams.get('Tarefa');
 
@@ -37,7 +39,7 @@ export class EditarTarefaPage {
       return;
     }
 
-    //this.events.publish('home:adicionarAluno', this.aluno);
+    this.events.publish('home:adicionarTarefa', this.tarefa);
 
     this.viewController.dismiss();
   }

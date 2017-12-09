@@ -41,7 +41,7 @@ export class EditarAlunoPage {
       return;
     }
 
-    //this.events.publish('home:adicionarAluno', this.aluno);
+    this.events.publish('home:adicionarAluno', this.aluno);
 
     this.viewController.dismiss();
   }

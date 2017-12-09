@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Events } from 'ionic-angular';
 import { Alocacoes } from '../../models/alocacoes';
 import { DialogoProvider } from '../../providers/dialogo/dialogo';
 
@@ -47,7 +47,15 @@ export class AlocacoesPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public modalCtrl: ModalController,
-    private dialogo: DialogoProvider) {
+    private dialogo: DialogoProvider,
+    private events: Events) {
+
+    this.events.subscribe('home:adicionarAlocacao', (alocacao: Alocacoes) => {
+
+      this.alocacoes = this.alocacoes.filter(a => a.Id != alocacao.Id);
+
+      this.alocacoes.push(alocacao);
+    });
   }
 
   adicionarAlocacao() {

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Tarefa } from '../../models/tarefa';
 import { DialogoProvider } from '../../providers/dialogo/dialogo';
+import { Events } from 'ionic-angular/util/events';
 
 @IonicPage()
 @Component({
@@ -28,7 +29,15 @@ export class CadastroTarefaPage {
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
-    private dialogo: DialogoProvider) {
+    private dialogo: DialogoProvider,
+    private events: Events) {
+
+    this.events.subscribe('home:adicionarTarefa', (tarefa: Tarefa) => {
+
+      this.tarefas = this.tarefas.filter(a => a.Id != tarefa.Id);
+
+      this.tarefas.push(tarefa);
+    });
 
   }
 
