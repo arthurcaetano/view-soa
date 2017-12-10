@@ -24,6 +24,97 @@ export class CadastroTarefaPage {
     Descricao: 'Tarefa 2',
     Inicio: new Date(),
     Fim: new Date()
+  },
+  {
+    Id: 2,
+    Titulo: 'Tarefa 2',
+    Descricao: 'Tarefa 2',
+    Inicio: new Date(),
+    Fim: new Date()
+  },
+  {
+    Id: 2,
+    Titulo: 'Tarefa 2',
+    Descricao: 'Tarefa 2',
+    Inicio: new Date(),
+    Fim: new Date()
+  },
+  {
+    Id: 2,
+    Titulo: 'Tarefa 2',
+    Descricao: 'Tarefa 2',
+    Inicio: new Date(),
+    Fim: new Date()
+  },
+  {
+    Id: 2,
+    Titulo: 'Tarefa 2',
+    Descricao: 'Tarefa 2',
+    Inicio: new Date(),
+    Fim: new Date()
+  },
+  {
+    Id: 2,
+    Titulo: 'Tarefa 2',
+    Descricao: 'Tarefa 2',
+    Inicio: new Date(),
+    Fim: new Date()
+  },
+  {
+    Id: 2,
+    Titulo: 'Tarefa 2',
+    Descricao: 'Tarefa 2',
+    Inicio: new Date(),
+    Fim: new Date()
+  },
+  {
+    Id: 2,
+    Titulo: 'Tarefa 2',
+    Descricao: 'Tarefa 2',
+    Inicio: new Date(),
+    Fim: new Date()
+  },
+  {
+    Id: 2,
+    Titulo: 'Tarefa 2',
+    Descricao: 'Tarefa 2',
+    Inicio: new Date(),
+    Fim: new Date()
+  },
+  {
+    Id: 2,
+    Titulo: 'Tarefa 2',
+    Descricao: 'Tarefa 2',
+    Inicio: new Date(),
+    Fim: new Date()
+  },
+  {
+    Id: 2,
+    Titulo: 'Tarefa 2',
+    Descricao: 'Tarefa 2',
+    Inicio: new Date(),
+    Fim: new Date()
+  },
+  {
+    Id: 2,
+    Titulo: 'Tarefa 2',
+    Descricao: 'Tarefa 2',
+    Inicio: new Date(),
+    Fim: new Date()
+  },
+  {
+    Id: 2,
+    Titulo: 'Tarefa 2',
+    Descricao: 'Tarefa 2',
+    Inicio: new Date(),
+    Fim: new Date()
+  },
+  {
+    Id: 2,
+    Titulo: 'Tarefa 2',
+    Descricao: 'Tarefa 2',
+    Inicio: new Date(),
+    Fim: new Date()
   }];
 
   constructor(
