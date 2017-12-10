@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { AdicionarComentariosPage } from './adicionar-comentarios';
+import { PipesModule } from '../../../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { AdicionarComentariosPage } from './adicionar-comentarios';
   ],
   imports: [
     IonicPageModule.forChild(AdicionarComentariosPage),
+    PipesModule
   ],
 })
-export class AdicionarComentariosPageModule {}
+export class AdicionarComentariosPageModule { }
