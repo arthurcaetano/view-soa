@@ -5,9 +5,13 @@ import { MyApp } from './app.component';
 
 import { TabsPage } from '../pages/tabs/tabs';
 
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DialogoProvider } from '../providers/dialogo/dialogo';
+import { ComunicacaoAlocacaoProvider } from '../providers/comunicacao-alocacao/comunicacao-alocacao';
 
 @NgModule({
   declarations: [
@@ -16,7 +20,9 @@ import { DialogoProvider } from '../providers/dialogo/dialogo';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -26,8 +32,9 @@ import { DialogoProvider } from '../providers/dialogo/dialogo';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DialogoProvider
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    DialogoProvider,
+    ComunicacaoAlocacaoProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }

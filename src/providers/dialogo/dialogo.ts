@@ -1,14 +1,34 @@
 import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
+import { Loading } from 'ionic-angular';
 
 @Injectable()
 export class DialogoProvider {
 
+  private loading: Loading;
+
   constructor(
     private alertCtrl: AlertController,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController) {
 
+  }
+
+  exibaLoadingPadrao() {
+
+    return this.exibaLoading('Por favor aguarde...');
+  }
+
+  removaLoading() {
+
+    if (this.loading != null) {
+
+      this.loading.dismiss().catch(_ => _);
+    }
+
+    this.loading = null;
   }
 
   exibaAlertaConfirme(mensagem: string) {
@@ -73,5 +93,20 @@ export class DialogoProvider {
     });
 
     toast.present();
+  }
+
+  private exibaLoading(mensagem: string) {
+
+    if (this.loading == null) {
+
+      this.loading = this.loadingCtrl.create({ content: mensagem });
+      this.loading.present();
+
+    } else {
+
+      this.loading.data.content = mensagem;
+    }
+
+    return this.loading;
   }
 }

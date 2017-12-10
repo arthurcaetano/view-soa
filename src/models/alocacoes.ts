@@ -5,7 +5,7 @@ export class Alocacoes {
 
     constructor() { }
 
-    public Id: number;
+    public Id: String;
     public Aluno: Aluno;
     public Tarefa: Tarefa;
 }
