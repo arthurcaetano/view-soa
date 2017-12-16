@@ -24,8 +24,6 @@ export class ComunicacaoAlocacaoProvider {
       .toPromise()
       .then(resp => {
 
-        this.dialogo.removaLoading();
-
         return resp;
       });
   }

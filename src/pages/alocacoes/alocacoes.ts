@@ -5,6 +5,8 @@ import { DialogoProvider } from '../../providers/dialogo/dialogo';
 import { Aluno } from '../../models/aluno';
 import { Tarefa } from '../../models/tarefa';
 import { ComunicacaoAlocacaoProvider } from '../../providers/comunicacao-alocacao/comunicacao-alocacao';
+import { ComunicacaoAlunoProvider } from '../../providers/comunicacao-aluno/comunicacao-aluno';
+import { ComunicacaoTarefaProvider } from '../../providers/comunicacao-tarefa/comunicacao-tarefa';
 
 @IonicPage()
 @Component({
@@ -13,38 +15,8 @@ import { ComunicacaoAlocacaoProvider } from '../../providers/comunicacao-alocaca
 })
 export class AlocacoesPage {
 
-  alunos: Aluno[] = [
-    {
-      Id: 1,
-      Nome: 'Arthur Caetano Borges Silva',
-      Curso: 'Arquitetura',
-      Materia: 'SOA'
-    },
-    {
-      Id: 2,
-      Nome: 'Arthur',
-      Curso: 'Arquitetura',
-      Materia: 'SOA'
-    }
-  ];
-
-  tarefas: Tarefa[] = [
-    {
-      Id: 1,
-      Titulo: 'Tarefa 1',
-      Descricao: 'Tarefa 1',
-      Inicio: new Date(),
-      Fim: new Date()
-    },
-    {
-      Id: 2,
-      Titulo: 'Tarefa 2',
-      Descricao: 'Tarefa 2',
-      Inicio: new Date(),
-      Fim: new Date()
-    }
-  ];
-
+  alunos: Aluno[] = [];
+  tarefas: Tarefa[] = [];
   alocacoes: Alocacoes[] = [];
 
   constructor(
@@ -53,7 +25,9 @@ export class AlocacoesPage {
     public modalCtrl: ModalController,
     private dialogo: DialogoProvider,
     private events: Events,
-    private comunicacao: ComunicacaoAlocacaoProvider) {
+    private comunicacao: ComunicacaoAlocacaoProvider,
+    private comunicacaoAluno: ComunicacaoAlunoProvider,
+    private comunicacaoTarefa: ComunicacaoTarefaProvider) {
 
     this.crieEventoParaAdicionarAlocacao();
   }
@@ -94,15 +68,29 @@ export class AlocacoesPage {
       .obtenhaAlocacoes()
       .then((alocacoes: any) => {
 
-        alocacoes.forEach(alocacao => {
+       this.comunicacaoAluno
+          .obtenha(false)
+          .then(alunos => {
 
-          this.alocacoes.push(
-            {
-              Id: alocacao._id,
-              Aluno: this.alunos.find(a => a.Id == alocacao.id_aluno),
-              Tarefa: this.tarefas.find(t => t.Id == alocacao.id_tarefa)
-            });
-        });
+            this.alunos = alunos;
+
+            this.comunicacaoTarefa
+              .obtenha()
+              .then(tarefas => {
+
+                this.tarefas = tarefas;
+
+                alocacoes.forEach(alocacao => {
+
+                  this.alocacoes.push(
+                    {
+                      Id: alocacao._id,
+                      Aluno: this.alunos.find(a => a.Id == alocacao.id_aluno),
+                      Tarefa: this.tarefas.find(t => t.Id == alocacao.id_tarefa)
+                    });
+                });
+              });
+          });
       });
   }
 

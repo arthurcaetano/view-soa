@@ -12,7 +12,7 @@ export class ComunicacaoTarefaProvider {
     private http: HttpClient,
     private dialogo: DialogoProvider) { }
 
-  obtenha() {
+  obtenha(removerLoading: boolean = true) {
 
     this.dialogo.exibaLoadingPadrao();
 
@@ -21,7 +21,7 @@ export class ComunicacaoTarefaProvider {
       .toPromise()
       .then((resp: any) => {
 
-        this.dialogo.removaLoading();
+        if (removerLoading) this.dialogo.removaLoading();
 
         return this.mapeieTarefa(resp);
       });
@@ -46,7 +46,7 @@ export class ComunicacaoTarefaProvider {
 
   adicionar(tarefa: Tarefa) {
 
-    if (tarefa.Id == 0) {
+    if (!tarefa.Id || tarefa.Id == 0) {
 
       this.dialogo.exibaLoadingPadrao();
 
@@ -55,8 +55,8 @@ export class ComunicacaoTarefaProvider {
           id: tarefa.Id,
           titulo: tarefa.Titulo,
           descricao: tarefa.Descricao,
-          inicio: tarefa.Inicio,
-          encerramento: tarefa.Fim
+          inicio: tarefa.Inicio.toISOString(),
+          encerramento: tarefa.Fim.toISOString()
         })
         .toPromise()
         .then(resp => {
@@ -67,7 +67,7 @@ export class ComunicacaoTarefaProvider {
         });
     } else {
 
-      this.atualizar(tarefa);
+      return this.atualizar(tarefa);
     }
   }
 
@@ -80,8 +80,8 @@ export class ComunicacaoTarefaProvider {
         id: tarefa.Id,
         titulo: tarefa.Titulo,
         descricao: tarefa.Descricao,
-        inicio: tarefa.Inicio,
-        encerramento: tarefa.Fim
+        inicio: tarefa.Inicio.toISOString(),
+        encerramento: tarefa.Fim.toISOString()
       })
       .toPromise()
       .then(resp => {
@@ -95,7 +95,7 @@ export class ComunicacaoTarefaProvider {
   mapeieTarefa(resp) {
 
     debugger;
-    
+
     let tarefas: Tarefa[] = [];
 
     resp.forEach(t => {

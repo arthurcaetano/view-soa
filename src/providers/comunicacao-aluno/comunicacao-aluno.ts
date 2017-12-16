@@ -12,7 +12,7 @@ export class ComunicacaoAlunoProvider {
     private http: HttpClient,
     private dialogo: DialogoProvider) { }
 
-  obtenha() {
+  obtenha(removerLoading: boolean = true) {
 
     this.dialogo.exibaLoadingPadrao();
 
@@ -21,7 +21,7 @@ export class ComunicacaoAlunoProvider {
       .toPromise()
       .then((resp: any) => {
 
-        this.dialogo.removaLoading();
+        if (removerLoading) this.dialogo.removaLoading();
 
         return this.mapeieAluno(resp);
       });
@@ -46,7 +46,7 @@ export class ComunicacaoAlunoProvider {
 
   adicionar(aluno: Aluno) {
 
-    if (aluno.Id != 0) {
+    if (aluno.Id && aluno.Id != 0) {
 
       return this.atualizar(aluno);
 
@@ -62,6 +62,8 @@ export class ComunicacaoAlunoProvider {
         })
         .toPromise()
         .then(resp => {
+
+          debugger;
 
           this.dialogo.removaLoading();
 

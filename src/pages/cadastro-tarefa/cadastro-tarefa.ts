@@ -23,6 +23,8 @@ export class CadastroTarefaPage {
 
     this.events.subscribe('home:adicionarTarefa', (tarefa: Tarefa) => {
 
+      debugger;
+      
       this.comunicacao
         .adicionar(tarefa)
         .then(() => {

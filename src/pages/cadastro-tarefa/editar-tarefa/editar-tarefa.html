@@ -16,18 +16,20 @@
     <ion-label floating> Descrição </ion-label>
     <ion-input [(ngModel)]="tarefa.Descricao"> </ion-input>
   </ion-item>
-  <ion-item>
-    <ion-label floating> Início </ion-label>
-    <ion-input [(ngModel)]="tarefa.Inicio"> </ion-input>
+  <ion-item class="data">
+    <ion-label> Início </ion-label>
+    <ion-input [(ngModel)]="inicio" placeholder="dd/mm/aaaa"> </ion-input>
   </ion-item>
-  <ion-item>
-    <ion-label floating> Fim </ion-label>
-    <ion-input [(ngModel)]="tarefa.Fim"> </ion-input>
+  <ion-item class="data">
+    <ion-label> Fim </ion-label>
+    <ion-input [(ngModel)]="fim" placeholder="dd/mm/aaaa"> </ion-input>
   </ion-item>
 
+</ion-content>
+
+<ion-footer>
   <div padding class="barra-ferramentas">
     <button ion-button color="light" (click)="cancelar()">Cancelar</button>
     <button ion-button (click)="gravar()">Gravar</button>
   </div>
-
-</ion-content>
+</ion-footer>

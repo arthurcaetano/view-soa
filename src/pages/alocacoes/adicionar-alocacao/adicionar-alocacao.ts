@@ -6,6 +6,8 @@ import { Alocacoes } from '../../../models/alocacoes';
 import { Aluno } from '../../../models/aluno';
 import { Tarefa } from '../../../models/tarefa';
 import { applySourceSpanToStatementIfNeeded } from '@angular/compiler/src/output/output_ast';
+import { ComunicacaoAlunoProvider } from '../../../providers/comunicacao-aluno/comunicacao-aluno';
+import { ComunicacaoTarefaProvider } from '../../../providers/comunicacao-tarefa/comunicacao-tarefa';
 
 @IonicPage()
 @Component({
@@ -14,38 +16,8 @@ import { applySourceSpanToStatementIfNeeded } from '@angular/compiler/src/output
 })
 export class AdicionarAlocacaoPage {
 
-  alunos: Aluno[] = [
-    {
-      Id: 1,
-      Nome: 'Arthur Caetano Borges Silva',
-      Curso: 'Arquitetura',
-      Materia: 'SOA'
-    },
-    {
-      Id: 2,
-      Nome: 'Arthur',
-      Curso: 'Arquitetura',
-      Materia: 'SOA'
-    }
-  ];
-
-  tarefas: Tarefa[] = [
-    {
-      Id: 1,
-      Titulo: 'Tarefa 1',
-      Descricao: 'Tarefa 1',
-      Inicio: new Date(),
-      Fim: new Date()
-    },
-    {
-      Id: 2,
-      Titulo: 'Tarefa 2',
-      Descricao: 'Tarefa 2',
-      Inicio: new Date(),
-      Fim: new Date()
-    }
-  ];
-
+  alunos: Aluno[] = [];
+  tarefas: Tarefa[] = [];
   alunoSelecionado: number;
   tarefaSelecionada: number;
 
@@ -54,8 +26,24 @@ export class AdicionarAlocacaoPage {
     public navParams: NavParams,
     public viewController: ViewController,
     public dialogo: DialogoProvider,
-    public events: Events
-  ) { }
+    public events: Events,
+    private comunicacaoAluno: ComunicacaoAlunoProvider,
+    private comunicacaoTarefa: ComunicacaoTarefaProvider) {
+
+    this.comunicacaoAluno
+      .obtenha(false)
+      .then(alunos => {
+
+        this.alunos = alunos;
+
+        this.comunicacaoTarefa
+          .obtenha()
+          .then(tarefas => {
+
+            this.tarefas = tarefas;
+          });
+      });
+  }
 
   cancelar() {
 
