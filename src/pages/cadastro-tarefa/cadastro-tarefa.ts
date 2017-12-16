@@ -24,13 +24,20 @@ export class CadastroTarefaPage {
     this.events.subscribe('home:adicionarTarefa', (tarefa: Tarefa) => {
 
       debugger;
-      
+
       this.comunicacao
         .adicionar(tarefa)
         .then(() => {
 
           this.tarefas = this.tarefas.filter(a => a.Id != tarefa.Id);
           this.tarefas.push(tarefa);
+
+          this.comunicacao
+            .obtenha()
+            .then(tarefas => {
+
+              this.tarefas = tarefas;
+            });
         });
     });
   }

@@ -61,6 +61,8 @@ export class ComunicacaoComentarioProvider {
 
   adicionar(comentario: Comentario) {
 
+    debugger;
+
     let servico = urlApi + 'save-or-create';
 
     this.dialogo.exibaLoadingPadrao();
@@ -71,15 +73,22 @@ export class ComunicacaoComentarioProvider {
         corpo: comentario.Comentario,
         data: comentario.Data.getTime(),
         autor: {
-          id: comentario.Aluno.Id
+          id: comentario.Aluno.Id,
+          nome: '',
+          email: ''
         },
         tarefa: {
-          id: comentario.Tarefa.Id
+          id: comentario.Tarefa.Id,
+          titulo: '',
+          descricao: '',
+          inicio: '',
+          fim: ''
         }
       })
       .toPromise()
-      .then(resp => {
+      .then((resp: any) => {
 
+        comentario.Id = resp.id;
         this.dialogo.removaLoading();
 
         return resp;

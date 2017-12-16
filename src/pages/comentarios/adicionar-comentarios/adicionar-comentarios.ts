@@ -39,6 +39,11 @@ export class AdicionarComentariosPage {
 
             this.alunos = alunos;
             this.comentarios = comentarios;
+            
+            this.comentarios.forEach(comentario => {
+
+              comentario.Aluno = this.alunos.find(a => a.Id == comentario.Aluno.Id);
+            });
           });
       });
   }
@@ -68,7 +73,12 @@ export class AdicionarComentariosPage {
       .exibaAlertaConfirme('Tem certeza que deseja remover o comentário?')
       .then(() => {
 
-        this.comunicacao.remover(comentario);
+        this.comunicacao
+          .remover(comentario)
+          .then(() => {
+
+            this.comentarios = this.comentarios.filter(c => c.Id != comentario.Id);
+          });
       })
       .catch(_ => _);
   }

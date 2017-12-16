@@ -13,8 +13,8 @@ export class EditarTarefaPage {
 
   tarefa: Tarefa;
 
-  inicio: string = '';
-  fim: string = '';
+  inicio: string = '16/12/2017';
+  fim: string = '16/12/2017';
 
   constructor(
     public navCtrl: NavController,
@@ -28,7 +28,7 @@ export class EditarTarefaPage {
     if (!this.tarefa) {
       this.tarefa = new Tarefa();
     } else {
-      
+
       this.inicio = this.formateData(this.tarefa.Inicio);
       this.fim = this.formateData(this.tarefa.Fim);
     }
@@ -49,7 +49,9 @@ export class EditarTarefaPage {
     }
 
     this.tarefa.Inicio = this.formate(this.inicio);
-    this.tarefa.Fim = this.formate(this.fim);
+    
+    if (this.fim)
+      this.tarefa.Fim = this.formate(this.fim);
 
     this.events.publish('home:adicionarTarefa', this.tarefa);
 

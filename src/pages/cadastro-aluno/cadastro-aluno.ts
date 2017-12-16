@@ -28,6 +28,13 @@ export class CadastroAlunoPage {
 
           this.alunos = this.alunos.filter(a => a.Id != aluno.Id);
           this.alunos.push(aluno);
+
+          this.comunicacao
+            .obtenha()
+            .then(alunos => {
+
+              this.alunos = alunos;
+            });
         })
     });
   }

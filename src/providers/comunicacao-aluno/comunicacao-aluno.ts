@@ -61,13 +61,21 @@ export class ComunicacaoAlunoProvider {
           email: aluno.Curso
         })
         .toPromise()
-        .then(resp => {
-
-          debugger;
+        .then((resp: any) => {
 
           this.dialogo.removaLoading();
 
           return resp;
+        })
+        .catch(resp => {
+          
+          if (!resp.error.sucess) {
+
+            resp.error.errors.forEach(erro => {
+
+              this.dialogo.exibaToastAlerta(erro);
+            });
+          }
         });
     }
   }
