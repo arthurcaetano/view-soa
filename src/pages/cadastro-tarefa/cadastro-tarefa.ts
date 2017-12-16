@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angu
 import { Tarefa } from '../../models/tarefa';
 import { DialogoProvider } from '../../providers/dialogo/dialogo';
 import { Events } from 'ionic-angular/util/events';
+import { ComunicacaoTarefaProvider } from '../../providers/comunicacao-tarefa/comunicacao-tarefa';
 
 @IonicPage()
 @Component({
@@ -11,125 +12,35 @@ import { Events } from 'ionic-angular/util/events';
 })
 export class CadastroTarefaPage {
 
-  tarefas: Tarefa[] = [{
-    Id: 1,
-    Titulo: 'Tarefa 1',
-    Descricao: 'Tarefa 1',
-    Inicio: new Date(),
-    Fim: new Date()
-  },
-  {
-    Id: 2,
-    Titulo: 'Tarefa 2',
-    Descricao: 'Tarefa 2',
-    Inicio: new Date(),
-    Fim: new Date()
-  },
-  {
-    Id: 2,
-    Titulo: 'Tarefa 2',
-    Descricao: 'Tarefa 2',
-    Inicio: new Date(),
-    Fim: new Date()
-  },
-  {
-    Id: 2,
-    Titulo: 'Tarefa 2',
-    Descricao: 'Tarefa 2',
-    Inicio: new Date(),
-    Fim: new Date()
-  },
-  {
-    Id: 2,
-    Titulo: 'Tarefa 2',
-    Descricao: 'Tarefa 2',
-    Inicio: new Date(),
-    Fim: new Date()
-  },
-  {
-    Id: 2,
-    Titulo: 'Tarefa 2',
-    Descricao: 'Tarefa 2',
-    Inicio: new Date(),
-    Fim: new Date()
-  },
-  {
-    Id: 2,
-    Titulo: 'Tarefa 2',
-    Descricao: 'Tarefa 2',
-    Inicio: new Date(),
-    Fim: new Date()
-  },
-  {
-    Id: 2,
-    Titulo: 'Tarefa 2',
-    Descricao: 'Tarefa 2',
-    Inicio: new Date(),
-    Fim: new Date()
-  },
-  {
-    Id: 2,
-    Titulo: 'Tarefa 2',
-    Descricao: 'Tarefa 2',
-    Inicio: new Date(),
-    Fim: new Date()
-  },
-  {
-    Id: 2,
-    Titulo: 'Tarefa 2',
-    Descricao: 'Tarefa 2',
-    Inicio: new Date(),
-    Fim: new Date()
-  },
-  {
-    Id: 2,
-    Titulo: 'Tarefa 2',
-    Descricao: 'Tarefa 2',
-    Inicio: new Date(),
-    Fim: new Date()
-  },
-  {
-    Id: 2,
-    Titulo: 'Tarefa 2',
-    Descricao: 'Tarefa 2',
-    Inicio: new Date(),
-    Fim: new Date()
-  },
-  {
-    Id: 2,
-    Titulo: 'Tarefa 2',
-    Descricao: 'Tarefa 2',
-    Inicio: new Date(),
-    Fim: new Date()
-  },
-  {
-    Id: 2,
-    Titulo: 'Tarefa 2',
-    Descricao: 'Tarefa 2',
-    Inicio: new Date(),
-    Fim: new Date()
-  },
-  {
-    Id: 2,
-    Titulo: 'Tarefa 2',
-    Descricao: 'Tarefa 2',
-    Inicio: new Date(),
-    Fim: new Date()
-  }];
+  tarefas: Tarefa[] = [];
 
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     private dialogo: DialogoProvider,
-    private events: Events) {
+    private events: Events,
+    private comunicacao: ComunicacaoTarefaProvider) {
 
     this.events.subscribe('home:adicionarTarefa', (tarefa: Tarefa) => {
 
-      this.tarefas = this.tarefas.filter(a => a.Id != tarefa.Id);
+      this.comunicacao
+        .adicionar(tarefa)
+        .then(() => {
 
-      this.tarefas.push(tarefa);
+          this.tarefas = this.tarefas.filter(a => a.Id != tarefa.Id);
+          this.tarefas.push(tarefa);
+        });
     });
+  }
 
+  ionViewDidEnter() {
+
+    this.comunicacao
+      .obtenha()
+      .then(tarefas => {
+
+        this.tarefas = tarefas;
+      });
   }
 
   adicionarTarefa() {
@@ -152,7 +63,12 @@ export class CadastroTarefaPage {
       .exibaAlertaConfirme('Tem certeza que deseja remover a tarefa?')
       .then(() => {
 
-        this.tarefas = this.tarefas.filter(t => t.Id != tarefa.Id);
+        this.comunicacao
+          .remover(tarefa)
+          .then(() => {
+
+            this.tarefas = this.tarefas.filter(t => t.Id != tarefa.Id);
+          });
       })
       .catch(_ => _);
   }

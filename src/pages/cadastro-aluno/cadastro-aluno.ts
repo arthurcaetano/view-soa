@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, ModalController, Events } from 'ionic-angular';
 import { Aluno } from '../../models/aluno';
 import { DialogoProvider } from '../../providers/dialogo/dialogo';
+import { ComunicacaoAlunoProvider } from '../../providers/comunicacao-aluno/comunicacao-aluno';
 
 @IonicPage()
 @Component({
@@ -10,31 +11,35 @@ import { DialogoProvider } from '../../providers/dialogo/dialogo';
 })
 export class CadastroAlunoPage {
 
-  alunos: Aluno[] = [{
-    Id: 1,
-    Nome: 'Arthur Caetano Borges Silva',
-    Curso: 'Arquitetura',
-    Materia: 'SOA'
-  },
-  {
-    Id: 2,
-    Nome: 'Fulano de Sá',
-    Curso: 'Arquitetura',
-    Materia: 'SOA'
-  }];
+  alunos: Aluno[] = [];
 
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     private dialogo: DialogoProvider,
-    private events: Events) {
+    private events: Events,
+    private comunicacao: ComunicacaoAlunoProvider) {
 
     this.events.subscribe('home:adicionarAluno', (aluno: Aluno) => {
 
-      this.alunos = this.alunos.filter(a => a.Id != aluno.Id);
+      this.comunicacao
+        .adicionar(aluno)
+        .then(() => {
 
-      this.alunos.push(aluno);
+          this.alunos = this.alunos.filter(a => a.Id != aluno.Id);
+          this.alunos.push(aluno);
+        })
     });
+  }
+
+  ionViewDidEnter() {
+
+    this.comunicacao
+      .obtenha()
+      .then(alunosresp => {
+
+        this.alunos = alunosresp;
+      });
   }
 
   adicionarAluno() {
@@ -57,7 +62,12 @@ export class CadastroAlunoPage {
       .exibaAlertaConfirme('Tem certeza que deseja remover o aluno?')
       .then(() => {
 
-        this.alunos = this.alunos.filter(a => a.Id != aluno.Id);
+        this.comunicacao
+          .remover(aluno)
+          .then(() => {
+
+            this.alunos = this.alunos.filter(a => a.Id != aluno.Id);
+          });
       })
       .catch(_ => _);
   }

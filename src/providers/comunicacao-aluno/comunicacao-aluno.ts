@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { DialogoProvider } from '../dialogo/dialogo';
 import { Aluno } from '../../models/aluno';
 
-const urlApi = '';
+const urlApi = 'http://localhost:12017/usuarios';
 
 @Injectable()
 export class ComunicacaoAlunoProvider {
@@ -23,7 +23,7 @@ export class ComunicacaoAlunoProvider {
 
         this.dialogo.removaLoading();
 
-        return resp;
+        return this.mapeieAluno(resp);
       });
   }
 
@@ -46,12 +46,39 @@ export class ComunicacaoAlunoProvider {
 
   adicionar(aluno: Aluno) {
 
+    if (aluno.Id != 0) {
+
+      return this.atualizar(aluno);
+
+    } else {
+
+      this.dialogo.exibaLoadingPadrao();
+
+      return this.http
+        .post(urlApi, {
+          id: 0,
+          nome: aluno.Nome,
+          email: aluno.Curso
+        })
+        .toPromise()
+        .then(resp => {
+
+          this.dialogo.removaLoading();
+
+          return resp;
+        });
+    }
+  }
+
+  atualizar(aluno: Aluno) {
+
     this.dialogo.exibaLoadingPadrao();
 
     return this.http
-      .post(urlApi, {
-        tarefa: '',
-        aluno: ''
+      .put(urlApi, {
+        id: aluno.Id,
+        nome: aluno.Nome,
+        email: aluno.Curso
       })
       .toPromise()
       .then(resp => {
@@ -62,4 +89,20 @@ export class ComunicacaoAlunoProvider {
       });
   }
 
+  mapeieAluno(resposta: any) {
+
+    let alunos: Aluno[] = [];
+
+    resposta.forEach(resp => {
+
+      alunos.push({
+        Id: resp.id,
+        Nome: resp.nome,
+        Curso: resp.email,
+        Materia: ''
+      })
+    });
+
+    return alunos;
+  }
 }
