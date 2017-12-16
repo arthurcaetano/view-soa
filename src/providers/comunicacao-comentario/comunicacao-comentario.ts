@@ -66,9 +66,16 @@ export class ComunicacaoComentarioProvider {
     this.dialogo.exibaLoadingPadrao();
 
     return this.http
-      .post(urlApi, {
-        tarefa: '',
-        aluno: ''
+      .post(servico, {
+        id: 0,
+        corpo: comentario.Comentario,
+        data: comentario.Data.getTime(),
+        autor: {
+          id: comentario.Aluno.Id
+        },
+        tarefa: {
+          id: comentario.Tarefa.Id
+        }
       })
       .toPromise()
       .then(resp => {
