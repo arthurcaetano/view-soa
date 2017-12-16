@@ -15,7 +15,7 @@
       <ion-label>{{tarefa.Titulo}}</ion-label>
 
       <ion-icon name="ios-chatboxes" item-end title="Comentários" (click)="comentar(tarefa)">
-        <ion-label class="quantidade-comentarios">2</ion-label>
+        <ion-label class="quantidade-comentarios">{{obtenhaQuantidadeDeComentariosDaTarefa(tarefa)}}</ion-label>
       </ion-icon>
 
     </button>

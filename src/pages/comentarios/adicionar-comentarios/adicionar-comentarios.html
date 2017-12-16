@@ -13,6 +13,7 @@
     <ion-card *ngFor="let comentario of comentarios">
 
       <ion-item>
+          <ion-icon name="md-trash" item-end title="Excluir" (click)="excluir(comentario)"></ion-icon>
         <ion-avatar item-start>
           <img src="assets/imgs/sem_foto.png">
         </ion-avatar>

@@ -12,6 +12,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DialogoProvider } from '../providers/dialogo/dialogo';
 import { ComunicacaoAlocacaoProvider } from '../providers/comunicacao-alocacao/comunicacao-alocacao';
+import { ComunicacaoComentarioProvider } from '../providers/comunicacao-comentario/comunicacao-comentario';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ComunicacaoAlocacaoProvider } from '../providers/comunicacao-alocacao/c
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     DialogoProvider,
-    ComunicacaoAlocacaoProvider
+    ComunicacaoAlocacaoProvider,
+    ComunicacaoComentarioProvider
   ]
 })
 export class AppModule { }

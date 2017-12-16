@@ -55,9 +55,12 @@ export class AlocacoesPage {
     private events: Events,
     private comunicacao: ComunicacaoAlocacaoProvider) {
 
-    this.carregarAlocacoes();
-
     this.crieEventoParaAdicionarAlocacao();
+  }
+
+  ionViewDidEnter() {
+
+    this.carregarAlocacoes();
   }
 
   adicionarAlocacao() {
@@ -84,6 +87,8 @@ export class AlocacoesPage {
   }
 
   private carregarAlocacoes() {
+
+    this.alocacoes = [];
 
     this.comunicacao
       .obtenhaAlocacoes()
